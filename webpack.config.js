@@ -7,7 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
     entry: './source/js/index.js',
     output: {
-        filename: 'script.js',
+        filename: '[name].[hash].js',
         path: path.resolve(__dirname, 'build')
     },
     devServer: {
@@ -55,12 +55,11 @@ module.exports = {
                     fallback: 'style-loader'
                 }) 
             }
-            // Images optimize and minify
         ]
     },
     plugins: [
         new ExtractTextPlugin({
-            filename: 'style.css'
+            filename: '[name].[hash].css'
         }),
         new HtmlWebpackPlugin({
             template: './source/index.html'
