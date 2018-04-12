@@ -32,12 +32,12 @@ module.exports = {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
                     use: [
-                        { 
-                            loader: 'css-loader', 
+                        {
+                            loader: 'css-loader',
                             // Minify css
-                            options: { 
-                                minimize: true 
-                            } 
+                            options: {
+                                minimize: true
+                            }
                         },
                         {
                             loader: 'postcss-loader',
@@ -45,7 +45,7 @@ module.exports = {
                                 plugins: [
                                     // For vendor prefixes
                                     autoprefixer({
-                                        browsers:['ie >= 8', 'last 4 version']
+                                        browsers: ['ie >= 8', 'last 4 version']
                                     })
                                 ]
                             }
@@ -53,7 +53,18 @@ module.exports = {
                         'sass-loader'
                     ],
                     fallback: 'style-loader'
-                }) 
+                })
+            },
+            // Config for fonts
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        useRelativePath: true
+                    }
+                }          
             }
         ]
     },
@@ -65,6 +76,6 @@ module.exports = {
             template: './source/index.html'
         }),
         // Clear build folder before build
-        new CleanWebpackPlugin('build/*.*')
+        new CleanWebpackPlugin('build')
     ]
 }

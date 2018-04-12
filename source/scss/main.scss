@@ -1,7 +1,12 @@
-@import 'variables';
+@import './common/_fonts';
+@import './_variables';
 
 body {
     background: $bg;
     color: red;
     display: flex;
+}
+
+h1 {
+    font-family: $Museo;
 }
