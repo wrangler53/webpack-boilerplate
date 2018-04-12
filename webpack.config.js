@@ -7,7 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
     entry: './source/js/index.js',
     output: {
-        filename: '[name].[hash].js',
+        filename: '[name][hash].min.js',
         path: path.resolve(__dirname, 'build')
     },
     devServer: {
@@ -65,12 +65,31 @@ module.exports = {
                         useRelativePath: true
                     }
                 }          
+            },
+            // Load html for using <img src="">
+            {
+                test: /\.html$/,
+                loader: 'html-loader'
+            },
+            // Minify images
+            {
+                test: /\.(gif|png|jpe?g|svg)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'images/'
+                        }
+                    },
+                    'image-webpack-loader'   
+                ]
             }
         ]
     },
     plugins: [
         new ExtractTextPlugin({
-            filename: '[name].[hash].css'
+            filename: '[name][hash].min.css'
         }),
         new HtmlWebpackPlugin({
             template: './source/index.html'
